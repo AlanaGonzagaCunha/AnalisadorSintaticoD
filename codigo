@@ -1,0 +1,7 @@
+program 
+var  test;integer ;
+begin 
+
+  write ('Hello, world.')
+
+end
