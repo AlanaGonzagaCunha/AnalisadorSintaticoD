@@ -44,11 +44,12 @@ public class AnalisadorSintatico {
 				dec_var();
 
 				if (tokens.get(i).getValor().equals("begin")) {
-
 					getToken(i++);
 					list_cmd();
+
 					if (tokens.get(i).getValor().equals("end")) {
 						getToken(i++);
+
 						testa = true;
 					} else {
 						System.out.println("end esperado! ");
@@ -65,19 +66,20 @@ public class AnalisadorSintatico {
 		}
 
 	}
-
+	//OK!
 	public static void parcela() {
 		// <parcela>::= <termo><parcela'>
 		termo();
 		parcelaLinha();
 	}
-
+	//OK!
 	public static void termo() {
 		// <termo>::= <fator><termo'>
 		fator();
 		termoLinha();
 	}
 
+	// OK!
 	public static void parcelaLinha() {
 		// <parcela'>::= +<termo><parcela'>|-<termo><parcela'>|or <termo>
 		// <parcela'>|E
@@ -88,22 +90,22 @@ public class AnalisadorSintatico {
 			parcelaLinha();
 
 		} else {
-			System.out.println("+, -, or esperado! ");
+			System.out.println("+ ou - ou or ou esperado! ");
 			testa = false;
 		}
 	}
-
+	//OK!
 	public static void ct() {
 		// <ct>::= <digito><ct'>
 		digito();
 		ctLinha();
 	}
 
-	// arrumar
+	// arrumar?????
 	public static void fator() {
 		// fator::= <id><indice> | ct | "(" <exp> ")"
 		if (tokens.get(i).getTipo().equals(Token.IDENTIFIER_TOKEN)
-				|| tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)||tokens.get(i).getTipo().equals(Token.RESERVED_WORD_TOKEN)) {
+				|| tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)) {
 			id();
 			indice();
 		} else if (tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)) {
@@ -120,7 +122,7 @@ public class AnalisadorSintatico {
 		}
 
 	}
-
+	//ok!
 	public static void ctLinha() {
 		// <ct'>::= <digito><ct'>|E
 		if (tokens.get(i).getValor().equals(Token.INTEGER_TOKEN)) {
@@ -144,16 +146,17 @@ public class AnalisadorSintatico {
 			testa = false;
 		}
 	}
-	//ok!
+
+	// ok!
 	public static void id() {
 		// <id> ::= <letra><id'>
 		// letra();
 		idLinha();
 	}
-	//ok!
+
+	// ok!
 	public static void idLinha() {
 		// <id'>::=<digito><id'>|<letra><id'>|E
-
 		if (tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)
 				|| tokens.get(i).getTipo().equals(Token.IDENTIFIER_TOKEN)) {
 			getToken(i++);
@@ -161,17 +164,7 @@ public class AnalisadorSintatico {
 		}
 
 	}
-
-	// public static void letra() {
-	// // <letra>::=A|...|a|...z
-	// if (tokens.get(i).getTipo().equals(Token.IDENTIFIER_TOKEN)) {
-	// getToken(i++);
-	// } else {
-	// System.out.println("Letra esperado! ");
-	// testa = false;
-	// }
-	// }
-
+	//OK!
 	public static void digito() {
 		// digito::=0|...|9
 		if (tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)) {
@@ -205,8 +198,8 @@ public class AnalisadorSintatico {
 			parcela();
 			outraParcela();
 		} else {
-			System.out.println("+,-,not ou vazio era esperado");
-			testa = false;
+			parcela();
+			outraParcela();
 		}
 	}
 
@@ -223,6 +216,7 @@ public class AnalisadorSintatico {
 		}
 	}
 
+	// Quase ok!
 	public static void cmd() {
 		// <cmd>::= <id><indice> ::= <exp> | if <exp> then <cmd> | <repeat>
 		// <list_cmd> until <exp>|
@@ -230,27 +224,94 @@ public class AnalisadorSintatico {
 		// ")"|
 		// while "(" <exp> ")"| while <exp> do <cmd>
 
+		/// repeat?????
+
+		if (tokens.get(i).getTipo().equals(Token.IDENTIFIER_TOKEN)
+				|| tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)) {
+			getToken(i++);
+			id();
+			indice();
+			if (tokens.get(i).getValor().equals("::=")) {
+				getToken(i++);
+				exp();
+			}
+		} else if (tokens.get(i).getValor().equals("if")) {
+			getToken(i++);
+			exp();
+			if (tokens.get(i).getValor().equals("then")) {
+				getToken(i++);
+				cmd();
+			}
+		} else if (tokens.get(i).getValor().equals("begin")) {
+			getToken(i++);
+			list_cmd();
+			if (tokens.get(i).getValor().equals("end")) {
+				getToken(i++);
+			}
+		} else if (tokens.get(i).getValor().equals("read")) {
+			getToken(i++);
+			if (tokens.get(i).getValor().equals("(")) {
+				getToken(i++);
+				id();
+				indice();
+				if (tokens.get(i).getValor().equals(")")) {
+					getToken(i++);
+
+				}
+			}
+		} else if (tokens.get(i).getValor().equals("write")) {
+			getToken(i++);
+			if (tokens.get(i).getValor().equals("(")) {
+
+				getToken(i++);
+				exp();
+				if (tokens.get(i).getValor().equals(")")) {
+					getToken(i++);
+					if (tokens.get(i).getValor().equals(";")) {
+						getToken(i++);
+
+					}
+				}
+			}
+		} else if (tokens.get(i).getValor().equals("while")) {
+			getToken(i++);
+			if (tokens.get(i).getValor().equals("(")) {
+				getToken(i++);
+				exp();
+				if (tokens.get(i).getValor().equals(")")) {
+					getToken(i++);
+				}
+			} else {
+				exp();
+				if (tokens.get(i).getValor().equals("do")) {
+					getToken(i++);
+					cmd();
+				}
+			}
+		}
 	}
 
-	// arrumar
+	// ok!
 	public static void list_cmd() {
 		// <list_cmd>::= <parcela> ; <list_cmd> | <cmd>
-		if (tokens.get(i).getTipo().equals(Token.IDENTIFIER_TOKEN)||tokens.get(i).getTipo().equals(Token.RESERVED_WORD_TOKEN)) {
-			System.out.println(tokens.get(i));
+		if (tokens.get(i).getTipo().equals(Token.IDENTIFIER_TOKEN)
+				|| tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)) {
 			parcela();
 			getToken(i++);
 			if (tokens.get(i).getValor().equals(";")) {
 				getToken(i++);
 				list_cmd();
 			}
+		} else {
+			cmd();
 		}
 
 	}
-	//ok!
+
+	// ok!
 	public static void tipo() {
 		// <tipo> ::= integer| array "[" <ct> "]" of integer
 		if (tokens.get(i).getValor().equals("integer")) {
-
 			getToken(i++);
 		} else if (tokens.get(i).getValor().equals("array")) {
 			getToken(i++);
@@ -278,8 +339,8 @@ public class AnalisadorSintatico {
 			}
 		}
 	}
-	
-	//ok!
+
+	// ok!
 	public static void dec_var() {
 		// <dec_var>::=<id> ; <tipo> ; <dec_var>|E
 
@@ -306,4 +367,13 @@ public class AnalisadorSintatico {
 		}
 
 	}
+	// public static void letra() {
+	// // <letra>::=A|...|a|...z
+	// if (tokens.get(i).getTipo().equals(Token.IDENTIFIER_TOKEN)) {
+	// getToken(i++);
+	// } else {
+	// System.out.println("Letra esperado! ");
+	// testa = false;
+	// }
+	// }
 }

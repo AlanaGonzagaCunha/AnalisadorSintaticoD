@@ -17,7 +17,8 @@ public class AnalisadorLexico {
 	static String[] SYMBOLS = { "(", ")", "{", "}", "'", ";", "=" };
 	static String[] OPERATORS = { "+", "-", "*", "/", "%", "<", ">" };
 	static String[] OPERATORS_COMP = { ">=", "<=", "&&", "||", "==" };
-
+	static String[] LISTCMD={"if", "it", "read", "write", "do", "not", "or", "div", "mod"};
+	
 	public static LinkedList<Token> parceLexico(String file) throws Exception {
 		LinkedList<Token> tokenlist = new LinkedList<>();
 

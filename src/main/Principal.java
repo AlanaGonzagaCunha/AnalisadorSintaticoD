@@ -18,9 +18,9 @@ public class Principal {
 		}
 		
 		System.out.println("Análise Léxica: ");
-		for (Token token : tokens) {
-			System.out.println(token);
-		}
+//		for (Token token : tokens) {
+//			System.out.println(token);
+//		}
 		System.out.println();
 		
 		System.out.println("Análise Sintática: ");

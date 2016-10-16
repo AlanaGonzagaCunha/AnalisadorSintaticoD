@@ -14,13 +14,14 @@ public class Token {
 	public final static String OPERATOR_TOKEN_COMP = "OPERATOR_TOKEN_COMPOUND";
 	public final static String IDENTIFIER_TOKEN = "IDENTIFIER_TOKEN";
 	public final static String INTEGER_TOKEN = "INTEGER_TOKEN";
-	
+	public final static String LISTCMD = "LISTCMD";
+
 	public Token(int linha, String tipo, String valor) {
 		super();
 		this.linha = linha;
 		this.tipo = tipo;
 		this.valor = valor;
-		
+
 	}
 
 	public int getLinha() {
