@@ -49,8 +49,7 @@ public class AnalisadorSintatico {
 
 					if (tokens.get(i).getValor().equals("end")) {
 						getToken(i++);
-
-						testa = true;
+						testa=true;
 					} else {
 						System.out.println("end esperado! ");
 					}
@@ -62,7 +61,6 @@ public class AnalisadorSintatico {
 			}
 		} else {
 			System.out.println("program esperado! ");
-			testa = false;
 		}
 
 	}
@@ -89,10 +87,7 @@ public class AnalisadorSintatico {
 			termo();
 			parcelaLinha();
 
-		} else {
-			System.out.println("+ ou - ou or ou esperado! ");
-			testa = false;
-		}
+		} 
 	}
 	//OK!
 	public static void ct() {
@@ -101,24 +96,22 @@ public class AnalisadorSintatico {
 		ctLinha();
 	}
 
-	// arrumar?????
+	// Quase isso!
 	public static void fator() {
 		// fator::= <id><indice> | ct | "(" <exp> ")"
-		if (tokens.get(i).getTipo().equals(Token.IDENTIFIER_TOKEN)
-				|| tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)) {
-			id();
-			indice();
-		} else if (tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)) {
+	 if (tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)) {
 			ct();
-		} else if (tokens.get(i).getValor().equals("(")) {
+	} else if (tokens.get(i).getValor().equals("(")) {
 			getToken(i++);
 			exp();
 			if (tokens.get(i).getValor().equals(")")) {
 				getToken(i++);
 			} else {
 				System.out.println(") esperado! ");
-				testa = false;
 			}
+		}else{
+			id();
+			indice();
 		}
 
 	}
@@ -140,11 +133,7 @@ public class AnalisadorSintatico {
 			getToken(i++);
 			fator();
 			termoLinha();
-
-		} else {
-			System.out.println("*, -, mod, div, and esperado! ");
-			testa = false;
-		}
+		} 
 	}
 
 	// ok!
@@ -162,7 +151,6 @@ public class AnalisadorSintatico {
 			getToken(i++);
 			idLinha();
 		}
-
 	}
 	//OK!
 	public static void digito() {
@@ -172,7 +160,6 @@ public class AnalisadorSintatico {
 
 		} else {
 			System.out.println("Digito esperado! ");
-			testa = false;
 		}
 	}
 
@@ -185,11 +172,11 @@ public class AnalisadorSintatico {
 				getToken(i++);
 			} else {
 				System.out.println("] esperado! ");
-				testa = false;
 			}
 		}
 	}
-
+	
+	//ok!
 	public static void exp() {
 		// <exp>::= (+|-|not|E) <parcela> <outra_parcela>
 		if (tokens.get(i).getValor().equals("+") || tokens.get(i).getValor().equals("-")
@@ -210,10 +197,7 @@ public class AnalisadorSintatico {
 				|| tokens.get(i).getValor().equals("<=") || tokens.get(i).getValor().equals(">=")) {
 			getToken(i++);
 			parcela();
-		} else {
-			System.out.println("=, <>, >, <, <=, >= ou vazio esperado! ");
-			testa = false;
-		}
+		} 
 	}
 
 	// Quase ok!
@@ -326,15 +310,12 @@ public class AnalisadorSintatico {
 							getToken(i++);
 						} else {
 							System.out.println("integer esperado! ");
-							testa = false;
 						}
 					} else {
 						System.out.println("of esperado! ");
-						testa = false;
 					}
 				} else {
 					System.out.println("] esperado! ");
-					testa = false;
 				}
 			}
 		}
@@ -358,11 +339,9 @@ public class AnalisadorSintatico {
 					dec_var();
 				} else {
 					System.out.println("; esperado! ");
-					testa = false;
 				}
 			} else {
 				System.out.println("; esperado! ");
-				testa = false;
 			}
 		}
 

@@ -27,7 +27,7 @@ public class Principal {
 		AnalisadorSintatico as= new AnalisadorSintatico(tokens);
 		as.prog();
 		System.out.println();
-		//as.result();
+		as.result();
 		
 	}
 
