@@ -1,8 +1,9 @@
 program 
-var  test;integer ;
+var  a;integer;
+		b;integer;
 begin 
 
-write();
-write();
+
+c := a b;
 
 end
