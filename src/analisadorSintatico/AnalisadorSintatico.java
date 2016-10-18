@@ -215,16 +215,7 @@ public class AnalisadorSintatico {
 
 		/// repeat?????
 
-		if (tokens.get(i).getTipo().equals(Token.IDENTIFIER_TOKEN)
-				|| tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)) {
-			getToken(i++);
-			id();
-			indice();
-			if (tokens.get(i).getValor().equals("::=")) {
-				getToken(i++);
-				exp();
-			}
-		} else if (tokens.get(i).getValor().equals("if")) {
+	 if (tokens.get(i).getValor().equals("if")) {
 			getToken(i++);
 			exp();
 			if (tokens.get(i).getValor().equals("then")) {
@@ -277,13 +268,20 @@ public class AnalisadorSintatico {
 					cmd();
 				}
 			}
+		}else{
+			id();
+			indice();
+			if (tokens.get(i).getValor().equals("::=")) {
+				getToken(i++);
+				exp();
+			}
 		}
 	}
 
 	// chamar list_cmd
 	public static void list_cmd() {
 		// <list_cmd> ::= <parcela> ; <list_cmd> | <cmd>
-		
+		//primeiro if pode vim um plavra reservada sendo difrente do begin e end
 		if (tokens.get(i).getTipo().equals(Token.IDENTIFIER_TOKEN)
 				|| tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)) {
 			parcela();
