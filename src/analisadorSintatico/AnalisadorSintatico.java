@@ -10,7 +10,7 @@ public class AnalisadorSintatico {
 	static int aux;
 
 	static private LinkedList<Token> tokens;
-
+//ct, numero, letra nao precisa
 	public static void result() {
 		if (testa) {
 			System.out.println("Analise sintática correta");
@@ -49,7 +49,7 @@ public class AnalisadorSintatico {
 
 					if (tokens.get(i).getValor().equals("end")) {
 						getToken(i++);
-						testa=true;
+						testa = true;
 					} else {
 						System.out.println("end esperado! ");
 					}
@@ -64,13 +64,15 @@ public class AnalisadorSintatico {
 		}
 
 	}
-	//OK!
+
+	// OK!
 	public static void parcela() {
 		// <parcela>::= <termo><parcela'>
 		termo();
 		parcelaLinha();
 	}
-	//OK!
+
+	// OK!
 	public static void termo() {
 		// <termo>::= <fator><termo'>
 		fator();
@@ -87,21 +89,21 @@ public class AnalisadorSintatico {
 			termo();
 			parcelaLinha();
 
-		} 
+		}
 	}
-	//OK!
+
+	// OK!
 	public static void ct() {
 		// <ct>::= <digito><ct'>
 		digito();
 		ctLinha();
 	}
 
-	// Quase isso!
 	public static void fator() {
 		// fator::= <id><indice> | ct | "(" <exp> ")"
-	 if (tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)) {
+		if (tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)) {
 			ct();
-	} else if (tokens.get(i).getValor().equals("(")) {
+		} else if (tokens.get(i).getValor().equals("(")) {
 			getToken(i++);
 			exp();
 			if (tokens.get(i).getValor().equals(")")) {
@@ -109,13 +111,14 @@ public class AnalisadorSintatico {
 			} else {
 				System.out.println(") esperado! ");
 			}
-		}else{
+		} else {
 			id();
 			indice();
 		}
 
 	}
-	//ok!
+
+
 	public static void ctLinha() {
 		// <ct'>::= <digito><ct'>|E
 		if (tokens.get(i).getValor().equals(Token.INTEGER_TOKEN)) {
@@ -133,17 +136,17 @@ public class AnalisadorSintatico {
 			getToken(i++);
 			fator();
 			termoLinha();
-		} 
+		}
 	}
 
-	// ok!
+		
 	public static void id() {
 		// <id> ::= <letra><id'>
 		// letra();
 		idLinha();
 	}
 
-	// ok!
+
 	public static void idLinha() {
 		// <id'>::=<digito><id'>|<letra><id'>|E
 		if (tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)
@@ -152,7 +155,8 @@ public class AnalisadorSintatico {
 			idLinha();
 		}
 	}
-	//OK!
+
+	
 	public static void digito() {
 		// digito::=0|...|9
 		if (tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)) {
@@ -175,8 +179,8 @@ public class AnalisadorSintatico {
 			}
 		}
 	}
-	
-	//ok!
+
+	// verficar chamada dupla de exp()
 	public static void exp() {
 		// <exp>::= (+|-|not|E) <parcela> <outra_parcela>
 		if (tokens.get(i).getValor().equals("+") || tokens.get(i).getValor().equals("-")
@@ -185,6 +189,7 @@ public class AnalisadorSintatico {
 			parcela();
 			outraParcela();
 		} else {
+			// getToken(i++);
 			parcela();
 			outraParcela();
 		}
@@ -197,7 +202,7 @@ public class AnalisadorSintatico {
 				|| tokens.get(i).getValor().equals("<=") || tokens.get(i).getValor().equals(">=")) {
 			getToken(i++);
 			parcela();
-		} 
+		}
 	}
 
 	// Quase ok!
@@ -275,9 +280,10 @@ public class AnalisadorSintatico {
 		}
 	}
 
-	// ok!
+	// chamar list_cmd
 	public static void list_cmd() {
-		// <list_cmd>::= <parcela> ; <list_cmd> | <cmd>
+		// <list_cmd> ::= <parcela> ; <list_cmd> | <cmd>
+		
 		if (tokens.get(i).getTipo().equals(Token.IDENTIFIER_TOKEN)
 				|| tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)) {
 			parcela();

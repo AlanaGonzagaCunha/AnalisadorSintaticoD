@@ -3,4 +3,6 @@ var  test;integer ;
 begin 
 
 write();
+write();
+
 end
