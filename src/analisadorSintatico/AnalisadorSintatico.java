@@ -172,7 +172,6 @@ public class AnalisadorSintatico {
 			parcela();
 			outraParcela();
 		} else {
-		
 				parcela();
 				outraParcela();
 		}
@@ -225,6 +224,7 @@ public class AnalisadorSintatico {
 				}
 			}
 		} else if (tokens.get(i).getValor().equals("write")) {
+			
 			getToken(i++);
 			if (tokens.get(i).getValor().equals("(")) {
 
@@ -236,12 +236,14 @@ public class AnalisadorSintatico {
 				}
 			}
 		} else if (tokens.get(i).getValor().equals("while")) {
+
 			getToken(i++);
 			if (tokens.get(i).getValor().equals("(")) {
 				getToken(i++);
 				exp();
 				if (tokens.get(i).getValor().equals(")")) {
 					getToken(i++);
+
 				}
 			} else {
 				exp();
@@ -257,6 +259,7 @@ public class AnalisadorSintatico {
 				getToken(i++);
 
 				if (tokens.get(i).getValor().equals("=")) {
+
 					getToken(i++);
 					exp();
 				}
@@ -267,14 +270,16 @@ public class AnalisadorSintatico {
 	// chamar list_cmd
 	public static void list_cmd() {
 		// <list_cmd> ::= <cmd> ; <list_cmd> | <cmd>
+
 		if (tokens.get(i).getTipo().equals(Token.IDENTIFIER_TOKEN)
 				|| tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)
 				|| tokens.get(i).getTipo().equals(Token.RESERVED_WORD_TOKEN)) {
-
 			cmd();
-			if (tokens.get(i).getValor().equals(";")) {
+
+			 if (tokens.get(i).getValor().equals(";")) {
 				getToken(i++);
 				list_cmd();
+				
 			}
 		} else {
 			cmd();

@@ -5,6 +5,8 @@ var  a;integer;
 begin 
 
 
-c := a b;
+read(a);
 
+while (a>b);
+write(b);
 end
