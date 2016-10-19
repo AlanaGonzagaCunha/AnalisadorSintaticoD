@@ -4,9 +4,9 @@ var  a;integer;
 	c;integer;
 begin 
 
+write(hhh);
 
-read(a);
+while(a>b);
+read(b);
 
-while (a>b);
-write(b);
 end

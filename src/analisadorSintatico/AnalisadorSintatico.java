@@ -3,10 +3,12 @@ package analisadorSintatico;
 import java.util.Iterator;
 import java.util.LinkedList;
 import analisadorLexico.Token;
+import exceptions.AnaliseException;
 
 public class AnalisadorSintatico {
 	static int i;
 	static boolean testa;
+	static boolean operador = false;
 	static int aux;
 	static String test[] = { "if", "integer", "program", "var", "array", "it", "then", "of", "repeat", "until", "read",
 			"write", "do", "not", "or", "div", "mod", "end", "$" };
@@ -81,11 +83,12 @@ public class AnalisadorSintatico {
 			termo();
 			parcelaLinha();
 		}
+		operador = true;
 	}
 
 	public static void ct() {
 		// <ct>::= <digito><ct'>
-		digito();
+		idLinha();
 		ctLinha();
 	}
 
@@ -102,6 +105,7 @@ public class AnalisadorSintatico {
 				System.out.println(") esperado! ");
 			}
 		} else {
+
 			id();
 			indice();
 		}
@@ -111,7 +115,8 @@ public class AnalisadorSintatico {
 		// <ct'>::= <digito><ct'>|E
 		if (tokens.get(i).getValor().equals(Token.INTEGER_TOKEN)) {
 			getToken(i++);
-			digito();
+			idLinha();
+			;
 			ctLinha();
 		}
 	}
@@ -125,6 +130,7 @@ public class AnalisadorSintatico {
 			fator();
 			termoLinha();
 		}
+		operador = true;
 	}
 
 	public static void id() {
@@ -134,22 +140,26 @@ public class AnalisadorSintatico {
 
 	public static void idLinha() {
 		// <id'>::=<digito><id'>|<letra><id'>|E
-
 		if (tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)
 				|| tokens.get(i).getTipo().equals(Token.IDENTIFIER_TOKEN)) {
 			getToken(i++);
-			idLinha();
+			
+			if (operador) {
+				//System.out.println("Necessario uma variavel dps do operador! ");
+			} else {
+				idLinha();
+			}
 		}
 	}
 
-	public static void digito() {
-		// digito::=0|...|9
-		if (tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)) {
-			getToken(i++);
-		} else {
-			System.out.println("Digito esperado! ");
-		}
-	}
+	// public static void digito() {
+	// // digito::=0|...|9
+	// if (tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)) {
+	// getToken(i++);
+	// } else {
+	// System.out.println("Digito esperado! ");
+	// }
+	// }
 
 	public static void indice() {
 		// <indice>::= "[" <ct> "]" |E
@@ -172,8 +182,9 @@ public class AnalisadorSintatico {
 			parcela();
 			outraParcela();
 		} else {
-				parcela();
-				outraParcela();
+			operador = true;
+			parcela();
+			outraParcela();
 		}
 	}
 
@@ -185,6 +196,7 @@ public class AnalisadorSintatico {
 			getToken(i++);
 			parcela();
 		}
+		operador = true;
 	}
 
 	public static void cmd() {
@@ -224,10 +236,8 @@ public class AnalisadorSintatico {
 				}
 			}
 		} else if (tokens.get(i).getValor().equals("write")) {
-			
 			getToken(i++);
 			if (tokens.get(i).getValor().equals("(")) {
-
 				getToken(i++);
 				exp();
 				if (tokens.get(i).getValor().equals(")")) {
@@ -276,10 +286,10 @@ public class AnalisadorSintatico {
 				|| tokens.get(i).getTipo().equals(Token.RESERVED_WORD_TOKEN)) {
 			cmd();
 
-			 if (tokens.get(i).getValor().equals(";")) {
+			if (tokens.get(i).getValor().equals(";")) {
 				getToken(i++);
 				list_cmd();
-				
+
 			}
 		} else {
 			cmd();
