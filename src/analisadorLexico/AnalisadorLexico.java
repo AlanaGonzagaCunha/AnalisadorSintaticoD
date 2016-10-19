@@ -14,7 +14,7 @@ public class AnalisadorLexico {
 
 	static String RESERVED_WORD[] = { "begin", "if", "end", "integer", "program", "var", "array", "it", "then", "of",
 			"repeat", "until", "read", "write", "do", "not", "or", "div", "mod", "end", "$" };
-	static String[] SYMBOLS = { "(", ")", "{", "}", "'", ";", "=" };
+	static String[] SYMBOLS = { "(", ")", "{", "}", "'", ";", "=", ":" };
 	static String[] OPERATORS = { "+", "-", "*", "/", "%", "<", ">" };
 	static String[] OPERATORS_COMP = { ">=", "<=", "&&", "||", "==" };
 	static String[] LISTCMD={"if", "it", "read", "write", "do", "not", "or", "div", "mod"};

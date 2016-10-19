@@ -1,6 +1,7 @@
 program 
 var  a;integer;
-		b;integer;
+	b;integer;
+	c;integer;
 begin 
 
 

@@ -128,13 +128,13 @@ public class AnalisadorSintatico {
 	}
 
 	public static void id() {
-		// <id> ::= <letra><id'>		
+		// <id> ::= <letra><id'>
 		idLinha();
 	}
 
 	public static void idLinha() {
 		// <id'>::=<digito><id'>|<letra><id'>|E
-	
+
 		if (tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)
 				|| tokens.get(i).getTipo().equals(Token.IDENTIFIER_TOKEN)) {
 			getToken(i++);
@@ -172,8 +172,9 @@ public class AnalisadorSintatico {
 			parcela();
 			outraParcela();
 		} else {
-			parcela();
-			outraParcela();
+		
+				parcela();
+				outraParcela();
 		}
 	}
 
@@ -186,7 +187,6 @@ public class AnalisadorSintatico {
 			parcela();
 		}
 	}
-
 
 	public static void cmd() {
 		// <cmd>::= <id><indice> := <exp> | if <exp> then <cmd> | <repeat>
@@ -232,7 +232,7 @@ public class AnalisadorSintatico {
 				exp();
 				if (tokens.get(i).getValor().equals(")")) {
 					getToken(i++);
-					
+
 				}
 			}
 		} else if (tokens.get(i).getValor().equals("while")) {
@@ -253,11 +253,10 @@ public class AnalisadorSintatico {
 		} else {
 			id();
 			indice();
-
 			if (tokens.get(i).getValor().equals(":")) {
 				getToken(i++);
-				
-				if(tokens.get(i).getValor().equals("=")){
+
+				if (tokens.get(i).getValor().equals("=")) {
 					getToken(i++);
 					exp();
 				}
@@ -271,7 +270,7 @@ public class AnalisadorSintatico {
 		if (tokens.get(i).getTipo().equals(Token.IDENTIFIER_TOKEN)
 				|| tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)
 				|| tokens.get(i).getTipo().equals(Token.RESERVED_WORD_TOKEN)) {
-			
+
 			cmd();
 			if (tokens.get(i).getValor().equals(";")) {
 				getToken(i++);
