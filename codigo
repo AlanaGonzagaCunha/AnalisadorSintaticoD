@@ -4,6 +4,6 @@ var  a;integer;
 	c;integer;
 begin 
 
-if a div b then 
+c:= a div b;
 write();
 end

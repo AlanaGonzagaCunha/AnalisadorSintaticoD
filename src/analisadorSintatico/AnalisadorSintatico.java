@@ -7,12 +7,9 @@ import exceptions.AnaliseException;
 
 public class AnalisadorSintatico {
 	static int i;
-	static boolean testa;
+	static boolean testa = false;
 	static boolean operador = false;
 	static int aux;
-	static String test[] = { "if", "integer", "program", "var", "array", "it", "then", "of", "repeat", "until", "read",
-			"write", "do", "not", "or", "div", "mod", "end", "$" };
-
 	static private LinkedList<Token> tokens;
 
 	public static void result() {
@@ -20,7 +17,6 @@ public class AnalisadorSintatico {
 			System.out.println("Analise sintática correta");
 		} else {
 			System.out.println("Analise sintática incorreta");
-
 		}
 	}
 
@@ -135,31 +131,23 @@ public class AnalisadorSintatico {
 		// <id> ::= <letra><id'>
 		idLinha();
 	}
-
+static	boolean a =false;
 	public static void idLinha() {
 		// <id'>::=<digito><id'>|<letra><id'>|E
-		
+
 		if (tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)
 				|| tokens.get(i).getTipo().equals(Token.IDENTIFIER_TOKEN)) {
 			getToken(i++);
-	
+			a=true;
 			if (operador) {
-				//System.out.println("Necessario uma variavel dps do operador! ");
-
+				// System.out.println("Necessario uma variavel dps do operador!
+				// ");
+				testa = false;
 			} else {
 				idLinha();
 			}
 		}
 	}
-
-	// public static void digito() {
-	// // digito::=0|...|9
-	// if (tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)) {
-	// getToken(i++);
-	// } else {
-	// System.out.println("Digito esperado! ");
-	// }
-	// }
 
 	public static void indice() {
 		// <indice>::= "[" <ct> "]" |E
@@ -242,7 +230,6 @@ public class AnalisadorSintatico {
 				exp();
 				if (tokens.get(i).getValor().equals(")")) {
 					getToken(i++);
-
 				}
 			}
 		} else if (tokens.get(i).getValor().equals("while")) {
@@ -289,12 +276,10 @@ public class AnalisadorSintatico {
 			if (tokens.get(i).getValor().equals(";")) {
 				getToken(i++);
 				list_cmd();
-
 			}
 		} else {
 			cmd();
 		}
-
 	}
 
 	public static void tipo() {
