@@ -4,9 +4,6 @@ var  a;integer;
 	c;integer;
 begin 
 
-write(hhh);
-
-while(a>b);
-read(b);
-
+if a div b then 
+write();
 end

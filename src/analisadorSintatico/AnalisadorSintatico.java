@@ -105,7 +105,6 @@ public class AnalisadorSintatico {
 				System.out.println(") esperado! ");
 			}
 		} else {
-
 			id();
 			indice();
 		}
@@ -116,7 +115,6 @@ public class AnalisadorSintatico {
 		if (tokens.get(i).getValor().equals(Token.INTEGER_TOKEN)) {
 			getToken(i++);
 			idLinha();
-			;
 			ctLinha();
 		}
 	}
@@ -140,12 +138,14 @@ public class AnalisadorSintatico {
 
 	public static void idLinha() {
 		// <id'>::=<digito><id'>|<letra><id'>|E
+		
 		if (tokens.get(i).getTipo().equals(Token.INTEGER_TOKEN)
 				|| tokens.get(i).getTipo().equals(Token.IDENTIFIER_TOKEN)) {
 			getToken(i++);
-			
+	
 			if (operador) {
 				//System.out.println("Necessario uma variavel dps do operador! ");
+
 			} else {
 				idLinha();
 			}
