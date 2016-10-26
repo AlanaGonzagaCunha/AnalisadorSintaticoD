@@ -21,7 +21,6 @@ public class AnalisadorLexico {
 	
 	public static LinkedList<Token> parceLexico(String file) throws Exception {
 		LinkedList<Token> tokenlist = new LinkedList<>();
-
 		StringBuffer string = bufferFile(file);
 
 		int lineCount = 1;
